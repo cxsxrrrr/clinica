@@ -1,30 +1,34 @@
 from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
-from kivy.core.window import Window
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-#packages
 import sys
+
+# Adjust sys.path as needed
 sys.path.append('../clinica')
 from administracion.admin import admin
-# (Assuming 'admin' is imported as explained previously)
-# from administracion.admin import admin
 
-class ScrollableButtonsApp(App):
-    def build(self):
+class appDeletePacienteView(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter('height'))
-        Window.clearcolor = (18/255, 18/255, 18/255)  # Darkmode background
         font = "./fuentes/coolvetica.otf"  # Assuming font path is correct
 
+        # Go Back Button
+        self.go_back_button = Button(text="Volver", size_hint=(None, None), size=(100, 50), pos_hint={'center_x': 0.5}, on_press=self.go_back)
+        
+        self.layout.add_widget(self.go_back_button)
+        self.eliminarPaciente = Button(text="Eliminar Paciente", on_press=lambda x:self.switch_to_eliminarPaciente(self), font_size=25, pos_hint={'center_x': 0.7} ,font_name=font)
         # TextInput adjusted for visibility
         self.cedula = TextInput(hint_text="Cedula, nombre, apellido, sexo", multiline=False, font_name=font,
                                 font_size=40, size_hint_y=None, height=80, padding=[5, 20, 0, 0])
 
-        self.cedula.bind(on_text_validate=self.on_enter)
+        self.cedula.bind(on_text_validate=self.busqueda)
         self.layout.add_widget(self.cedula)
 
         # Create ScrollView initially empty
@@ -32,37 +36,55 @@ class ScrollableButtonsApp(App):
                                      pos_hint={'center_x': 0.5, 'center_y': 0.34}, do_scroll_y=True)
         self.scrollview.add_widget(self.layout)
 
-        return self.scrollview
+        self.add_widget(self.scrollview)
 
-    def on_enter(self, instance):
-        # Remove all widgets except the cedula input
-        for widget in self.layout.children:
-            if widget != self.cedula:
-                self.layout.remove_widget(widget)
+    def busqueda(self, instance):  # Corrected to accept 'instance'
+        # ... (your existing logic to clear previous widgets)
+            bn = admin()
+            pacientes = bn.busquedaPacientes(self.cedula.text)
+            self.patients = []
 
-        bn=admin()
-        pacientes=bn.busquedaPacientes(self.cedula.text)
-        print(pacientes)
-        patients=[]
-        for paciente in pacientes:
-            try:
-                nombre, apellido, cedula = paciente
-                button_text = f'Paciente: {nombre} {apellido}, {cedula}'
-                
-                patients.append(Button(text=button_text, size_hint=(1, None), height=80))
-                print(patients)
+            for paciente in pacientes:
+                    nombre, apellido, cedula = paciente
+                    button_text = f'Paciente: {nombre} {apellido}, {cedula}'
+                    button = Button(text=button_text, size_hint=(1, None), height=80)
+                    button.bind(on_press=lambda instance, cedula=cedula: self.delete(instance, cedula))
+                    self.layout.add_widget(button)
+                    self.patients.append(button)
 
-                # Add functionality to the button (example)
-                patients[0].bind(on_press=lambda instance: self.delete(cedula))  # Assuming you have a method
-                self.layout.add_widget(patients[0])
-            except Exception as e:
-                print(f"Error creating button for patient: {e}")
+            self.cedula.text = ''  
 
-        self.cedula.text = ''  # Clear the cedula input after processing
-    def delete(self, cedula):
-        self.popup = Popup(title='Info', content=Label(text=cedula),
-        auto_dismiss=True, size_hint=(None, None), size=(500, 200))
-        self.popup.open()
+    def delete(self, instance, cedula):
+        bn = admin()
+        result = bn.deletePacientes(cedula)
+        if result:
+            self.layout.remove_widget(instance)  # Remove the button from the layout
+
+            # Create a label with the result of the deletion
+            content = Label(text=f'Paciente con cedula {cedula} eliminado')
+
+            # Create the popup with the label as its content
+            self.popup = Popup(title='Info', content=content,
+                               auto_dismiss=True, size_hint=(None, None), size=(500, 200))
+            self.popup.open()
+        else:
+            # Create a label with the error message
+            content = Label(text=f'Error al eliminar el paciente con cedula {cedula}')
+
+            # Create the popup with the label as its content
+            self.popup = Popup(title='Error', content=content,
+                               auto_dismiss=True, size_hint=(None, None), size=(500, 200))
+            self.popup.open() 
+
+    def go_back(self, instance):
+        self.manager.current = 'appAdmin'
+
+class MyApp(App):
+
+    def build(self):
+        sm = ScreenManager()
+        sm.add_widget(appDeletePacienteView(name='deletePacienteView'))
+        return sm
 
 if __name__ == '__main__':
-    ScrollableButtonsApp().run()
+    MyApp().run()

@@ -5,6 +5,7 @@ sys.path.append('../clinica')
 from appAdmin import appAdministrador
 from addPacienteView import appAddPaciente
 from addBioanalistaView import appAddBioanalista
+from deletePacienteView import appDeletePacienteView
 # kivy imports
 from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
@@ -17,7 +18,6 @@ from kivy.uix.popup import Popup
 
 #sql imports
 import sqlite3
-
 
 class LoginScreen(Screen):
 
@@ -123,7 +123,8 @@ class MyApp(App):
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(appAdministrador(name='appAdmin'))
         sm.add_widget(appAddPaciente(name='addPacienteView'))
-        sm.add_widget(appAddBioanalista(name='addBioanalistaView'))        
+        sm.add_widget(appAddBioanalista(name='addBioanalistaView')) 
+        sm.add_widget(appDeletePacienteView(name='deletePacienteView'))            
         return sm
 
 

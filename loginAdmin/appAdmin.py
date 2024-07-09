@@ -69,4 +69,5 @@ class appAdministrador(Screen):
         self.manager.current = 'addPacienteView'
 
     def switch_to_eliminarPaciente(self, instance):
-        self.manager.current = 'DelPacienteView'
+        self.manager.current = 'deletePacienteView'
+

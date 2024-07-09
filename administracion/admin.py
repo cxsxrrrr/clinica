@@ -72,14 +72,30 @@ class admin():
 
         
     def deletePacientes(self, id):
-        delClient_st = f'''DELETE FROM Pacientes WHERE id_paciente={id}'''
-        cur = self.conn.cursor()
-        cur.execute(delClient_st)
-        self.conn.commit()
-        return cur.lastrowid
+        try:
+            delClient_st = f'''DELETE FROM Pacientes WHERE cedula={id}'''
+            cur = self.conn.cursor()
+            cur.execute(delClient_st)
+            self.conn.commit()
+
+            return "Paciente eliminado con exito"
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
     
     def busquedaPacientes(self, cedula):
-        cur = self.conn.cursor()
-        cur.execute(f'''SELECT * FROM Pacientes WHERE cedula={cedula}''')
-        return cur.fetchall()
+        try:
+
+            cur = self.conn.cursor()
+            cur.execute('''SELECT nombre, apellido, cedula FROM Pacientes 
+               WHERE cedula=? OR nombre=? OR apellido=? OR sexo=?''', (cedula, cedula, cedula, cedula))
+            return cur.fetchall()
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
+        
     

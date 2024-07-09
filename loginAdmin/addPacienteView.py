@@ -110,7 +110,7 @@ class appAddPaciente(Screen):
         mail = self.email.text
         bn = admin()
 
-        self.popup = Popup(title='Info', content=Label(text=bn.addPaciente([name, lname, id, date, gender, contact, location, mail])),
+        self.popup = Popup(title='Info', content=Label(text=bn.addPaciente([name, lname, id, date, gender.upper(), contact, location, mail])),
         auto_dismiss=True, size_hint=(None, None), size=(500, 200))
         
         
