@@ -113,4 +113,26 @@ class admin():
             if cur:
                 cur.close()
         
-    
+    def busquedaPacientes2(self):
+        try:
+
+            cur = self.conn.cursor()
+            cur.execute('''SELECT nombre, apellido, cedula, sexo, telefono, fecha_nacimiento FROM Pacientes ''')
+            return cur.fetchall()
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
+            
+    def busquedaBioanalistas2(self):
+        try:
+
+            cur = self.conn.cursor()
+            cur.execute('''SELECT nombre, apellido, cedula, especialidad, telefono FROM Bioanalistas ''')
+            return cur.fetchall()
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
