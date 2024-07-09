@@ -31,17 +31,32 @@ class admin():
             if cur:
                 cur.close()
 
-    def deleteBioanalista(self):
-        delBio_st = f'''DELETE FROM bioanalistas WHERE id_bioanalista={id}'''
-        cur = self.conn.cursor()
-        cur.execute(delBio_st)
-        self.conn.commit()
-        return cur.lastrowid
+    def deleteBioanalista(self, id):
+        try:
+            delClient_st = f'''DELETE FROM Bioanalistas WHERE cedula={id}'''
+            cur = self.conn.cursor()
+            cur.execute(delClient_st)
+            self.conn.commit()
+
+            return "Paciente eliminado con exito"
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
 
     def busquedaBioanalista(self, cedula):
-        cur = self.conn.cursor()
-        cur.execute(f'''SELECT * FROM Bioanalistas WHERE cedula={cedula}''')
-        return cur.fetchall()
+        try:
+
+            cur = self.conn.cursor()
+            cur.execute('''SELECT nombre, apellido, cedula FROM Bioanalistas
+               WHERE cedula=? OR nombre=? OR apellido=?''', (cedula, cedula, cedula))
+            return cur.fetchall()
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
     
     #Metodos Bioanalista
     def addPaciente(self, pacienteData):

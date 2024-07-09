@@ -78,13 +78,3 @@ class appDeletePacienteView(Screen):
 
     def go_back(self, instance):
         self.manager.current = 'appAdmin'
-
-class MyApp(App):
-
-    def build(self):
-        sm = ScreenManager()
-        sm.add_widget(appDeletePacienteView(name='deletePacienteView'))
-        return sm
-
-if __name__ == '__main__':
-    MyApp().run()

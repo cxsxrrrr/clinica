@@ -54,7 +54,8 @@ class appAdministrador(Screen):
 
         self.eliminarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.49}
         self.eliminarPaciente.size_hint_y = 0.1
-        self.eliminarPaciente.size_hint_x = 0.30       
+        self.eliminarPaciente.size_hint_x = 0.30 
+             
     #VOLVER
     def switch_to_home(self, instance):
         self.manager.current = 'login'
@@ -63,7 +64,7 @@ class appAdministrador(Screen):
         self.manager.current = 'addBioanalistaView'
 
     def switch_to_eliminarBioanalista(self, instance):
-        self.manager.current = 'delBioanalistaView'
+        self.manager.current = 'deleteBioanalistaView'
     #PACIENTES
     def switch_to_agregarPaciente(self, instance):
         self.manager.current = 'addPacienteView'
