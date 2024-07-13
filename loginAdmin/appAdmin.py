@@ -28,7 +28,7 @@ class appAdministrador(Screen):
         self.agregarBioanalista = Button(text="Agregar Bioanalista", on_press=self.switch_to_agregarBioanalista, font_size=25, font_name=fuente)
         self.add_widget(self.agregarBioanalista)
 
-        self.agregarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.84}
+        self.agregarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.8}
         self.agregarBioanalista.size_hint_y = 0.1
         self.agregarBioanalista.size_hint_x = 0.30
 
@@ -36,7 +36,7 @@ class appAdministrador(Screen):
         self.eliminarBioanalista = Button(text="Eliminar Bioanalista", on_press=self.switch_to_eliminarBioanalista, font_size=25,font_name=fuente)
         self.add_widget(self.eliminarBioanalista)
 
-        self.eliminarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.73}
+        self.eliminarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.7}
         self.eliminarBioanalista.size_hint_y = 0.1
         self.eliminarBioanalista.size_hint_x = 0.30    
 
@@ -52,23 +52,29 @@ class appAdministrador(Screen):
         self.eliminarPaciente = Button(text="Eliminar Paciente", on_press=self.switch_to_eliminarPaciente, font_size=25,font_name=fuente)
         self.add_widget(self.eliminarPaciente)
 
-        self.eliminarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.49}
+        self.eliminarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.50}
         self.eliminarPaciente.size_hint_y = 0.1
         self.eliminarPaciente.size_hint_x = 0.30 
 
         #BUSQUEDA TODOS LOS PACIENTES  
         self.buscarPaciente = Button(text="PACIENTES", on_press=self.switch_to_buscarPaciente, font_size=25,font_name=fuente)
         self.add_widget(self.buscarPaciente)
-        self.buscarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.33}
+        self.buscarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.40}
         self.buscarPaciente.size_hint_y = 0.1
         self.buscarPaciente.size_hint_x = 0.30 
 
         #BUSQUEDA TODOS LOS BIOANALISTAS 
         self.buscarBioanalista = Button(text="BIOANALISTAS", on_press=self.switch_to_buscarBioanalista, font_size=25,font_name=fuente)
         self.add_widget(self.buscarBioanalista)
-        self.buscarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.20}
+        self.buscarBioanalista.pos_hint = {'center_x': 0.13, 'top': 0.30}
         self.buscarBioanalista.size_hint_y = 0.1
         self.buscarBioanalista.size_hint_x = 0.30 
+
+        self.generarResultados = Button(text="Generar resultados", on_press=self.switch_to_generarResultados, font_size=25,font_name=fuente)
+        self.add_widget(self.generarResultados)
+        self.generarResultados.pos_hint = {'center_x': 0.13, 'top': 0.20}
+        self.generarResultados.size_hint_y = 0.1
+        self.generarResultados.size_hint_x = 0.30 
 
     #VOLVER
     def switch_to_home(self, instance):
@@ -91,3 +97,6 @@ class appAdministrador(Screen):
 
     def switch_to_buscarBioanalista(self, instance):
         self.manager.current = 'busquedaBioanalistaView'
+
+    def switch_to_generarResultados(self, instance):
+        self.manager.current = 'generarResultadosView'

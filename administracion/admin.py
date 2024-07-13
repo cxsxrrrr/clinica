@@ -136,3 +136,18 @@ class admin():
         finally:
             if cur:
                 cur.close()
+    
+    def generarResultado(self, data):
+        try:
+            insertClient_st = '''INSERT INTO Resultados(id_paciente, id_bioanalista, fecha_resultado, resultado) VALUES (?, ?, ?, ?)'''
+            cur = self.conn.cursor()
+            cur.execute(insertClient_st, data[:4])
+            self.conn.commit()
+            return "Resultado ingresado con exito"      
+        except sqlite3.Error as e:
+        # Manejar otros errores generales de SQLite
+            return f"Error en la base de datos: {e}"
+        finally:
+        # Cerrar el cursor en todos los casos (éxito o error)
+            if cur:
+                cur.close()

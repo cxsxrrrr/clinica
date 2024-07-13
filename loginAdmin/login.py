@@ -9,6 +9,7 @@ from deletePacienteView import appDeletePacienteView
 from deleteBioanalistaView import appDeleteBioanalistaView
 from busquedaPacienteView import appBusquedaPacienteView
 from busquedaBioanalistaView import appBusquedaBioanalistaView
+from generarResultadosView import generarResultados
 # kivy imports
 from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
@@ -131,6 +132,8 @@ class MyApp(App):
         sm.add_widget(appDeleteBioanalistaView(name='deleteBioanalistaView'))   
         sm.add_widget(appBusquedaPacienteView(name='busquedaPacienteView'))   
         sm.add_widget(appBusquedaBioanalistaView(name='busquedaBioanalistaView'))     
+        sm.add_widget(generarResultados(name='generarResultadosView'))
+        #frsf
         return sm
 
 
