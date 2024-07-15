@@ -9,6 +9,7 @@ class admin():
     def addBioanalista(self, bioanalistaData):
         try:
             insertClient_st = '''INSERT INTO Bioanalistas(nombre, apellido, especialidad, telefono, email, password, cedula) VALUES (?, ?, ?, ?, ?, ?, ?)'''
+
             cur = self.conn.cursor()
             cur.execute(insertClient_st, bioanalistaData[:7])
             self.conn.commit()
@@ -124,6 +125,22 @@ class admin():
         finally:
             if cur:
                 cur.close()
+
+    def busquedaResultados(self, cedula):
+        try:
+            cur = self.conn.cursor()
+            cur.execute('''SELECT r.resultado, r.fecha_resultado, b.nombre 
+                       FROM Resultados r
+                       INNER JOIN Bioanalistas b ON r.id_bioanalista = b.cedula
+                       WHERE r.id_paciente=?''', (cedula,))
+            return cur.fetchall()
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:
+            if cur:
+                cur.close()
+
+        
             
     def busquedaBioanalistas2(self):
         try:
@@ -151,3 +168,19 @@ class admin():
         # Cerrar el cursor en todos los casos (éxito o error)
             if cur:
                 cur.close()
+
+    def updatePassword(self, data):
+        try:
+            cur = self.conn.cursor()
+            updateQuery = '''UPDATE Bioanalistas SET password=? WHERE password=? AND cedula=?'''
+            cur.execute(updateQuery, data[:3])
+            if cur.rowcount == 0:
+                return "Contraseña incorrecta: no se encontró ninguna coincidencia en la base de datos."
+            self.conn.commit()
+            return "Contraseña actualizada con éxito."
+        except sqlite3.Error as e:
+            return f"Error en la base de datos: {e}"
+        finally:   
+            if cur:
+                cur.close()
+

@@ -103,7 +103,7 @@ class LoginScreen(Screen):
             
             if (detectNonNumberCharacters(username)==False):
                 statement = f"SELECT cedula from AdminLg WHERE cedula='{username}' AND password = '{password}';"
-                compadm = 'SELECT id'
+
                 cursor.execute(statement)
                 if not cursor.fetchone():
                     self.popupPassword.open()

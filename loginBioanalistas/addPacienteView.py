@@ -2,14 +2,12 @@
 from administracion.admin import admin
 
 from administracion.admin import admin
-from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.core.window import Window
-import sqlite3
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 
 class appAddPaciente(Screen):

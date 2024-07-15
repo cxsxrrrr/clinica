@@ -88,6 +88,7 @@ class LoginScreen(Screen):
         if instance.collide_point(*touch.pos):
             self.manager.current = 'register'
 
+    
     def on_login_press(self, instance):
         # Implement login logic here
         # (e.g., validate username and password against a database)
@@ -112,8 +113,11 @@ class LoginScreen(Screen):
                 if not cursor.fetchone():
                     self.popupPassword.open()
                 else:
-                    
-                    self.manager.current = 'appUser' 
+                    # Cambiar a la pantalla appUser y pasar el nombre de usuario
+                     app_user_screen = self.manager.get_screen('appUser')
+                     app_user_screen.username = username  # Asigna el nombre de usuario
+                     self.manager.current = 'appUser'
+
             else:
                 self.popup.open()
             # Commit a los cambios

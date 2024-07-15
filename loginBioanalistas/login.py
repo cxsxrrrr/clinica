@@ -4,9 +4,10 @@ sys.path.append('../clinica')
 
 from appAdmin import appAdministrador
 from addPacienteView import appAddPaciente
-from addBioanalistaView import appAddBioanalista
 from deletePacienteView import appDeletePacienteView
-from deleteBioanalistaView import appDeleteBioanalistaView
+from busquedaPacienteView import appBusquedaPacienteView
+from generarResultadosView import generarResultados
+from updatePasswd import updatePassword
 # kivy imports
 from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
@@ -37,7 +38,7 @@ class LoginScreen(Screen):
 
         # Create text input fields for username and password
         self.username = TextInput(hint_text="Enter your username", multiline=False, font_name=font, font_size=20, padding=[5, 15, 0, 0])
-        self.role = Label(text="Administracion", font_name=font, font_size=25)
+        self.role = Label(text="Bioanalista", font_name=font, font_size=25)
         self.password = TextInput(password=True, multiline=False, hint_text="Enter your password", font_name=font, font_size=20, padding=[5, 15, 0, 0])
 
         # Create a login button
@@ -99,13 +100,14 @@ class LoginScreen(Screen):
                 return any(not c.isdigit() for c in id)
             
             if (detectNonNumberCharacters(username)==False):
-                statement = f"SELECT cedula from AdminLg WHERE cedula='{username}' AND password = '{password}';"
-                compadm = 'SELECT id'
+                statement = f"SELECT cedula from Bioanalistas WHERE cedula='{username}' AND password = '{password}';"
+
                 cursor.execute(statement)
                 if not cursor.fetchone():
                     self.popupPassword.open()
                 else:
-                    
+                    app_user_screen = self.manager.get_screen('updatePassword')
+                    app_user_screen.username = username                    
                     self.manager.current = 'appAdmin' 
             else:
                 self.popup.open()
@@ -124,9 +126,12 @@ class MyApp(App):
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(appAdministrador(name='appAdmin'))
         sm.add_widget(appAddPaciente(name='addPacienteView'))
-        sm.add_widget(appAddBioanalista(name='addBioanalistaView')) 
         sm.add_widget(appDeletePacienteView(name='deletePacienteView'))          
-        sm.add_widget(appDeleteBioanalistaView(name='deleteBioanalistaView'))         
+        sm.add_widget(appBusquedaPacienteView(name='busquedaPacienteView'))    
+        sm.add_widget(generarResultados(name='generarResultadosView'))
+        sm.add_widget(updatePassword(name='updatePassword'))
+        
+        #frsf
         return sm
 
 
