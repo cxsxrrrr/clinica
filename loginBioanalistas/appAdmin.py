@@ -12,7 +12,7 @@ class appAdministrador(Screen):
         super(appAdministrador, self).__init__(**kwargs)
         self.layout = RelativeLayout()
         Window.clearcolor = (18/255, 18/255, 18/255)  # Darkmode background
-        wimg = Image(source='../img/mylogo.png', size_hint=(None, None), size=(500, 500), allow_stretch=True, pos_hint={'center_x': 0.67, 'y': 0.1})
+        wimg = Image(source='../img/mylogo.png', size_hint=(None, None), size=(500, 500), allow_stretch=True, pos_hint={'center_x': 0.67, 'y': 0.2})
         self.add_widget(wimg)
         fuente="./fuentes/coolvetica.otf"
 
@@ -30,6 +30,8 @@ class appAdministrador(Screen):
         self.actualizarPassword.size_hint_y = 0.1
         self.actualizarPassword.size_hint_x = 0.30    
         self.add_widget(self.actualizarPassword)
+        analisis = Image(source='../img/analisis.png', size_hint=(None, None), size=(50, 50), allow_stretch=True, pos_hint={'center_x': 0.323, 'top': 0.68})
+        self.add_widget(analisis)
 
         #AGREGAR PACIENTE
         self.agregarPaciente = Button(text="Agregar Paciente", on_press=self.switch_to_agregarPaciente, font_size=25,font_name=fuente)
@@ -38,7 +40,8 @@ class appAdministrador(Screen):
         self.agregarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.6}
         self.agregarPaciente.size_hint_y = 0.1
         self.agregarPaciente.size_hint_x = 0.30    
-
+        enfermeria = Image(source='../img/enfermeria.png', size_hint=(None, None), size=(50, 50), allow_stretch=True, pos_hint={'center_x': 0.323, 'top': 0.58})
+        self.add_widget(enfermeria)
         #ELIMINAR PACIENTE    
         self.eliminarPaciente = Button(text="Eliminar Paciente", on_press=self.switch_to_eliminarPaciente, font_size=25,font_name=fuente)
         self.add_widget(self.eliminarPaciente)
@@ -46,7 +49,8 @@ class appAdministrador(Screen):
         self.eliminarPaciente.pos_hint = {'center_x': 0.13, 'top': 0.50}
         self.eliminarPaciente.size_hint_y = 0.1
         self.eliminarPaciente.size_hint_x = 0.30 
-
+        clinica = Image(source='../img/clinica.png', size_hint=(None, None), size=(50, 50), allow_stretch=True, pos_hint={'center_x': 0.323, 'top': 0.48})
+        self.add_widget(clinica)
         #BUSQUEDA TODOS LOS PACIENTES  
         self.buscarPaciente = Button(text="PACIENTES", on_press=self.switch_to_buscarPaciente, font_size=25,font_name=fuente)
         self.add_widget(self.buscarPaciente)
@@ -54,12 +58,16 @@ class appAdministrador(Screen):
         self.buscarPaciente.size_hint_y = 0.1
         self.buscarPaciente.size_hint_x = 0.30 
 
+        medicamento = Image(source='../img/medicamento.png', size_hint=(None, None), size=(50, 50), allow_stretch=True, pos_hint={'center_x': 0.323, 'top': 0.38})
+        self.add_widget(medicamento)
+
         self.generarResultados = Button(text="Generar resultados", on_press=self.switch_to_generarResultados, font_size=25,font_name=fuente)
         self.add_widget(self.generarResultados)
         self.generarResultados.pos_hint = {'center_x': 0.13, 'top': 0.30}
         self.generarResultados.size_hint_y = 0.1
         self.generarResultados.size_hint_x = 0.30 
-
+        construccion = Image(source='../img/construccion.png', size_hint=(None, None), size=(50, 50), allow_stretch=True, pos_hint={'center_x': 0.323, 'top': 0.28})
+        self.add_widget(construccion)
     #VOLVER
     def switch_to_home(self, instance):
         self.manager.current = 'login'
