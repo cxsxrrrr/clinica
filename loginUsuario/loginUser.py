@@ -13,6 +13,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.uix.popup import Popup
+from kivy.uix.image import Image
+from kivy.uix.screenmanager import NoTransition  
 
 #sql imports
 import sqlite3
@@ -28,6 +30,8 @@ class LoginScreen(Screen):
         #FUENTE A USAR
 
         font="./fuentes/coolvetica.otf"
+        wimg = Image(source='../img/mylogo.png', size_hint=(None, None), size=(200, 200), allow_stretch=True, pos_hint={'center_x': 0.5, 'y': 0.67})
+        self.add_widget(wimg)
 
         # Create labels for username and password
         self.username_label = Label(text="Cedula:", font_name=font, font_size=25)
@@ -131,7 +135,7 @@ class LoginScreen(Screen):
 class MyApp(App):
 
     def build(self):
-        sm = ScreenManager()
+        sm = ScreenManager(transition=NoTransition())
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(RegisterScreen(name='register'))
         sm.add_widget(UsuarioScreen(name='appUser'))

@@ -3,7 +3,7 @@ from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.uix.screenmanager import Screen
-
+from kivy.uix.image import Image
 
 class appAdministrador(Screen):
     def __init__(self, **kwargs):
@@ -14,7 +14,8 @@ class appAdministrador(Screen):
         Window.clearcolor = (18/255, 18/255, 18/255)  # Darkmode background
 
         fuente="./fuentes/coolvetica.otf"
-
+        wimg = Image(source='../img/mylogo.png', size_hint=(None, None), size=(500, 500), allow_stretch=True, pos_hint={'center_x': 0.6, 'y': 0.3})
+        self.add_widget(wimg)
         self.button = Button(text="Cerrar sesion", on_press=self.switch_to_home, font_size=25,font_name=fuente)
         self.add_widget(self.button)
 
