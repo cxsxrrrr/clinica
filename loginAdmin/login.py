@@ -89,8 +89,6 @@ class LoginScreen(Screen):
         self.popupPassword = Popup(title='Error', content=Label(text='Cédula o Contraseña incorrectas. Por favor, intenta de nuevo.'),
               auto_dismiss=True, size_hint=(None, None), size=(770, 300))
     def on_login_press(self, instance):
-        # Implement login logic here
-        # (e.g., validate username and password against a database)
         username = self.username.text
         password = self.password.text
         username = username.strip()

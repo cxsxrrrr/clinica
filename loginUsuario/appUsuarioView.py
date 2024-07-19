@@ -5,6 +5,7 @@ from kivy.uix.scrollview import ScrollView
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 import sys
+from kivy.uix.image import Image
 
 # Asegúrate de que el path esté configurado correctamente para importar desde '../clinica'
 sys.path.append('../clinica')
@@ -21,7 +22,8 @@ class UsuarioScreen(Screen):
         self.layout = GridLayout(cols=1, spacing=10, size_hint_y=None)
         self.layout.bind(minimum_height=self.layout.setter('height'))
         font = "./fuentes/coolvetica.otf"  
-
+        wimg = Image(source='../img/mylogo.png', size_hint=(None, None), size=(100, 100), allow_stretch=True, pos_hint={'center_x': 0.5, 'y': 0.8})
+        self.add_widget(wimg)
         # Go Back Button
         self.go_back_button = Button(text="Logout", size_hint=(None, None), size=(100, 50), pos_hint={'center_x': 0.5}, on_press=self.go_back, font_name=font)
         self.layout.add_widget(self.go_back_button)
