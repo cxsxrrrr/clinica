@@ -1,5 +1,8 @@
-import sys 
-sys.path.append('../clinica')
+import sys
+import os
+
+# Add the parent directory of 'administracion' to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from administracion.admin import admin
 
 import sqlite3 

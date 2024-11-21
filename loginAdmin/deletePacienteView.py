@@ -7,9 +7,10 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 import sys
+import os
 
-# Adjust sys.path as needed
-sys.path.append('../clinica')
+# Add the parent directory of 'administracion' to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from administracion.admin import admin
 
 class appDeletePacienteView(Screen):

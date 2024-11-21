@@ -1,6 +1,11 @@
 #packages
+
 import sys
-sys.path.append('../clinica')
+import os
+
+# Add the parent directory of 'administracion' to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 from appAdmin import appAdministrador
 from addPacienteView import appAddPaciente

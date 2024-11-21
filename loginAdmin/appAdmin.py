@@ -4,7 +4,11 @@ from kivy.uix.button import Button
 from kivy.core.window import Window
 from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
+import sys
+import os
 
+# Add the parent directory of 'administracion' to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 class appAdministrador(Screen):
     def __init__(self, **kwargs):
         
